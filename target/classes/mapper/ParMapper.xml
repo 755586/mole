@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.service.dao.IParDao" >  
+    <resultMap id="BaseResultMap" type="com.service.pojo.Par">
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="p_name" property="name" jdbcType="VARCHAR" />
+		<result column="p_value" property="value" jdbcType="VARCHAR" />
+		<result column="p_state" property="state" jdbcType="INTEGER" />
+		<result column="p_comment" property="comment" jdbcType="DATE" />
+		<!-- <association property="bizClass" javaType="com.foresee.ems.entity.forms.BizClass">
+       		<id property="id" column="BIZ_CLASS_ID"></id>
+    	</association> -->
+	</resultMap>
+	<!-- 查询用户-->
+	<select id="findParById" resultMap="BaseResultMap"  parameterType="int">
+		select * from t_par where id = #{id};
+	</select>
+	<!-- 查询所有用户-->
+	<!-- <if test="pName!= null and pName != ''">
+            and p_name like '%'|| #{pName}||'%'
+         </if> -->
+	<select id="findAllPar" resultMap="BaseResultMap"  parameterType="com.service.pojo.Par">
+		select * from t_par t
+		 where 1 = 1
+		 <if test="id != null and id != ''">
+            and id = #{id}
+         </if>
+          <if test="name != null and name != ''">
+            and p_name = #{name}
+         </if>
+         <if test="value != null and value != ''">
+            and p_value = #{value}
+         </if>
+         <if test="state != null and state != ''">
+            and p_state = #{state}
+         </if>
+         <if test="comment != null and comment != ''">
+            and p_comment = #{comment}
+         </if>
+        order by t.id;
+	</select>
+	<!-- 修改用户-->
+	<update id="updatePar" parameterType="com.service.pojo.Par">
+		update t_par set id = #{id}
+			<if test="name != null and name != ''">
+            , p_name = #{name}
+         </if>
+         <if test="value != null and value != ''">
+            , p_value = #{value}
+         </if>
+         <if test="state != null and state != ''">
+            , p_state = #{state}
+         </if>
+         <if test="comment != null and comment != ''">
+            , p_comment = #{comment}
+         </if>
+		 where id = #{id}
+	</update>
+	<!-- 添加用户-->
+	<insert id="addPar" parameterType="com.service.pojo.Par">
+		insert into t_par(p_name,p_value,p_comment) values (#{name},#{value},#{comment})
+	</insert>
+	<!-- 删除用户-->
+	<delete id="deleteParById" parameterType="int">
+		delete from t_par where id = #{id}
+	</delete>
+	<!-- 查询用户-->
+	<select id="findParByName" resultMap="BaseResultMap"  parameterType="string">
+		select * from t_par where p_name = #{name};
+	</select>
+</mapper>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.service.dao.IMenuDao" >  
+    <resultMap id="BaseResultMap" type="com.service.pojo.Menu">
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="m_name" property="name" jdbcType="VARCHAR" />
+		<result column="m_url" property="url" jdbcType="VARCHAR" />
+		<result column="m_icon" property="icon" jdbcType="VARCHAR" />
+		<result column="m_state" property="state" jdbcType="INTEGER" />
+		<result column="m_pid" property="pId" jdbcType="INTEGER" />
+		<result column="m_comment" property="comment" jdbcType="VARCHAR" />
+		<!-- <association property="bizClass" javaType="com.foresee.ems.entity.forms.BizClass">
+       		<id property="id" column="BIZ_CLASS_ID"></id>
+    	</association> -->
+	</resultMap>
+	<!-- 查询用户-->
+	<select id="findMenuById" resultMap="BaseResultMap"  parameterType="int">
+		select * from t_menu where id = #{id};
+	</select>
+	<!-- 查询所有用户-->
+	<!-- <if test="pName!= null and pName != ''">
+            and p_name like '%'|| #{pName}||'%'
+         </if> -->
+	<select id="findAllMenu" resultMap="BaseResultMap"  parameterType="com.service.pojo.Menu">
+		select * from t_menu t
+		 where 1 = 1
+		 <if test="id != null and id != ''">
+            and id = #{id}
+         </if>
+          <if test="name != null and name != ''">
+            and m_name = #{name}
+         </if>
+         <if test="url != null and url != ''">
+            and m_url = #{url}
+         </if>
+         <if test="icon != null and icon != ''">
+            and m_icon = #{icon}
+         </if>
+         <if test="state != null and state != ''">
+            and m_state = #{state}
+         </if>
+         <if test="pId != null and pId != ''">
+            and m_pid = #{pId}
+         </if>
+         <if test="comment != null and comment != ''">
+            and m_comment = #{comment}
+         </if>
+        order by t.id;
+	</select>
+	<!-- 修改用户-->
+	<update id="updateMenu" parameterType="com.service.pojo.Menu">
+		update t_menu set id = #{id}
+			<if test="name != null and name != ''">
+            , m_name = #{name}
+         </if>
+         <if test="url != null and url != ''">
+            , m_url = #{url}
+         </if>
+         <if test="icon != null and icon != ''">
+            , m_icon = #{icon}
+         </if>
+         <if test="state != null">
+            , m_state = #{state}
+         </if>
+         <if test="pId != null and pId != ''">
+            , m_pid = #{pId}
+         </if>
+         <if test="comment != null and comment != ''">
+            , m_comment = #{comment}
+         </if>
+		 where id = #{id}
+	</update>
+	<!-- 添加用户-->
+	<insert id="addMenu" parameterType="com.service.pojo.Menu">
+		insert into t_menu(m_name,m_url,m_pid) values (#{name},#{url},#{pId})
+	</insert>
+	<!-- 删除用户-->
+	<delete id="deleteMenuById" parameterType="int">
+		delete from t_menu where id = #{id}
+	</delete>
+	<!-- 查询用户-->
+	<select id="findMenuByName" resultMap="BaseResultMap"  parameterType="string">
+		select * from t_menu where m_name = #{name};
+	</select>
+</mapper>

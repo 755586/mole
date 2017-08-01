@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.service.dao.IWordDao" >  
+    <resultMap id="BaseResultMap" type="com.qiu.pojo.Word">
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="g_word_chinese" property="chinese" jdbcType="VARCHAR" />
+		<result column="g_word_english" property="english" jdbcType="VARCHAR" />
+		<result column="g_word_type_name" property="type_name" jdbcType="VARCHAR" />
+		<result column="g_word_rank" property="rank" jdbcType="INTEGER" />
+		<result column="g_word_type" property="type" jdbcType="INTEGER" />
+		<result column="g_word_comment" property="comment" jdbcType="VARCHAR" />
+		<!-- <association property="bizClass" javaType="com.foresee.ems.entity.forms.BizClass">
+       		<id property="id" column="BIZ_CLASS_ID"></id>
+    	</association> -->
+	</resultMap>
+	<!-- 查询用户-->
+	<select id="findWordById" resultMap="BaseResultMap"  parameterType="int">
+		select * from t_word where id = #{id};
+	</select>
+	<!-- 查询所有用户-->
+	<!-- <if test="pName!= null and pName != ''">
+            and p_name like '%'|| #{pName}||'%'
+         </if> -->
+	<select id="findAllWord" resultMap="BaseResultMap"  parameterType="com.qiu.pojo.Word">
+		select * from t_word t
+		 where 1 = 1
+		 <if test="id != null and id != ''">
+            and id = #{id}
+         </if>
+          <if test="chinese != null and chinese != ''">
+            and g_word_chinese = #{chinese}
+         </if>
+         <if test="english != null and english != ''">
+            and g_word_english = #{english}
+         </if>
+         <if test="type_name != null and type_name != ''">
+            and g_word_type_name = #{type_name}
+         </if>
+         <if test="rank != null and rank != ''">
+            and g_word_rank = #{rank}
+         </if>
+         <if test="type != null and type != ''">
+            and g_word_type = #{type}
+         </if>
+         <if test="comment != null and comment != ''">
+            and g_word_comment = #{comment}
+         </if>
+        order by g_word_type;
+	</select>
+	<!-- 修改用户-->
+	<update id="updateWord" parameterType="com.qiu.pojo.Word">
+		update t_word set id = #{id}
+			<if test="chinese != null and chinese != ''">
+            , g_word_chinese = #{chinese}
+         </if>
+         <if test="english != null and english != ''">
+            , g_word_english = #{english}
+         </if>
+         <if test="type_name != null and type_name != ''">
+            , g_word_type_name = #{type_name}
+         </if>
+         <if test="rank != null and rank != ''">
+            , g_word_rank = #{rank}
+         </if>
+         <if test="type != null and type != ''">
+            , g_word_type = #{type}
+         </if>
+         <if test="comment != null and comment != ''">
+            , g_word_comment = #{comment}
+         </if>
+		 where id = #{id}
+	</update>
+	<!-- 添加用户-->
+	<insert id="addWord" parameterType="com.qiu.pojo.Word">
+		insert into t_word(g_word_chinese,g_word_english,g_word_type,g_word_type_name) values (#{chinese},#{english},#{type},#{type_name})
+	</insert>
+	<!-- 删除用户-->
+	<delete id="deleteWordById" parameterType="int">
+		delete from t_word where id = #{id}
+	</delete>
+	<!-- 删除用户-->
+	<delete id="deleteWordByType" parameterType="int">
+		delete from t_word where g_word_type = #{type}
+	</delete>
+	<!-- 查询用户-->
+	<select id="findWordByName" resultMap="BaseResultMap"  parameterType="string">
+		select * from t_word where g_word_chinese = #{chinese};
+	</select>
+</mapper>

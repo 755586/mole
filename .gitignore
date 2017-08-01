@@ -1,0 +1,5 @@
+/.metadata/*
+/.recommenders/*
+/mole/web/WEB-INF/classes/*
+Readme.txt
+/Servers/*

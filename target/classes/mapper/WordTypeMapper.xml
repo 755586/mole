@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.service.dao.IWordTypeDao" >  
+    <resultMap id="BaseResultMap" type="com.service.pojo.WordType">
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="g_word_type_name" property="type_name" jdbcType="VARCHAR" />
+		<!-- <association property="bizClass" javaType="com.foresee.ems.entity.forms.BizClass">
+       		<id property="id" column="BIZ_CLASS_ID"></id>
+    	</association> -->
+	</resultMap>
+	<!-- 查询用户-->
+	<select id="findWordTypeById" resultMap="BaseResultMap"  parameterType="int">
+		select * from t_word_type where id = #{id};
+	</select>
+	<!-- 查询所有用户-->
+	<!-- <if test="pName!= null and pName != ''">
+            and p_name like '%'|| #{pName}||'%'
+         </if> -->
+	<select id="findAllWordType" resultMap="BaseResultMap"  parameterType="com.service.pojo.WordType">
+		select * from t_word_type t
+		 where 1 = 1
+		 <if test="id != null and id != ''">
+            and id = #{id}
+         </if>
+         <if test="type_name != null and type_name != ''">
+            and g_word_type_name = #{type_name}
+         </if>
+        order by t.id;
+	</select>
+	<!-- 修改用户-->
+	<update id="updateWordType" parameterType="com.service.pojo.WordType">
+		update t_word_type set id = #{id}
+         <if test="type_name != null and type_name != ''">
+            , g_word_type_name = #{type_name}
+         </if>
+		 where id = #{id}
+	</update>
+	<!-- 添加用户-->
+	<insert id="addWordType" parameterType="com.service.pojo.WordType">
+		insert into t_word_type (g_word_type_name) values (#{type_name})
+	</insert>
+	<!-- 删除用户-->
+	<delete id="deleteWordTypeById" parameterType="int">
+		delete from t_word_type where id = #{id}
+	</delete>
+	<!-- 查询用户-->
+	<select id="findWordTypeByName" resultMap="BaseResultMap"  parameterType="string">
+		select * from g_word_type where g_word_type_name = #{type_name};
+	</select>
+</mapper>
