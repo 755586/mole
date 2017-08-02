@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.service.dao.IMenuDao" >  
-    <resultMap id="BaseResultMap" type="com.qiu.pojo.Menu">
+    <resultMap id="BaseResultMap" type="com.service.pojo.Menu">
 		<result column="id" property="id" jdbcType="INTEGER" />
 		<result column="m_name" property="name" jdbcType="VARCHAR" />
 		<result column="m_url" property="url" jdbcType="VARCHAR" />
@@ -21,7 +21,7 @@
 	<!-- <if test="pName!= null and pName != ''">
             and p_name like '%'|| #{pName}||'%'
          </if> -->
-	<select id="findAllMenu" resultMap="BaseResultMap"  parameterType="com.qiu.pojo.Menu">
+	<select id="findAllMenu" resultMap="BaseResultMap"  parameterType="com.service.pojo.Menu">
 		select * from t_menu t
 		 where 1 = 1
 		 <if test="id != null and id != ''">
@@ -48,7 +48,7 @@
         order by t.id;
 	</select>
 	<!-- 修改用户-->
-	<update id="updateMenu" parameterType="com.qiu.pojo.Menu">
+	<update id="updateMenu" parameterType="com.service.pojo.Menu">
 		update t_menu set id = #{id}
 			<if test="name != null and name != ''">
             , m_name = #{name}
@@ -71,7 +71,7 @@
 		 where id = #{id}
 	</update>
 	<!-- 添加用户-->
-	<insert id="addMenu" parameterType="com.qiu.pojo.Menu">
+	<insert id="addMenu" parameterType="com.service.pojo.Menu">
 		insert into t_menu(m_name,m_url,m_pid) values (#{name},#{url},#{pId})
 	</insert>
 	<!-- 删除用户-->

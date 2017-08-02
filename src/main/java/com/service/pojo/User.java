@@ -15,6 +15,7 @@ public class User implements Serializable{
 	private int state;
 	private int rank;
 	private Date login_time;
+	private int roleid;
 	public User() {
 		super();
 	}
@@ -60,11 +61,17 @@ public class User implements Serializable{
 	public void setLogin_time(Date login_time) {
 		this.login_time = login_time;
 	}
+	
+	public int getRoleid() {
+		return roleid;
+	}
+	public void setRoleid(int roleid) {
+		this.roleid = roleid;
+	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", nickname=" + nickname
-				+ ", password=" + password + ", state=" + state + ", rank="
-				+ rank + ", login_time=" + login_time + "]";
+		return "User [id=" + id + ", name=" + name + ", nickname=" + nickname + ", password=" + password + ", state="
+				+ state + ", rank=" + rank + ", login_time=" + login_time + ", roleid=" + roleid + "]";
 	}
 	
 	

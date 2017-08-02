@@ -25,7 +25,7 @@
     <mvc:default-servlet-handler/>
     
     <!-- 设置使用注解的类所在的包 -->
-	<context:component-scan base-package="com.qiu.controller" />
+	<context:component-scan base-package="com.service.controller" />
 	
 	<!-- 完成请求和注解POJO的映射 -->
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
@@ -58,7 +58,7 @@
             <!--税务人员用户认证拦截-->
             <mvc:mapping path="/system/**" />
             <mvc:exclude-mapping path="/system"/>
-            <bean class="com.qiu.interceptor.DefaultInterceptor"></bean>
+            <bean class="com.service.interceptor.DefaultInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>
 </beans>

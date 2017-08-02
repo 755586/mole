@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.service.dao.IParDao" >  
-    <resultMap id="BaseResultMap" type="com.qiu.pojo.Par">
+    <resultMap id="BaseResultMap" type="com.service.pojo.Par">
 		<result column="id" property="id" jdbcType="INTEGER" />
 		<result column="p_name" property="name" jdbcType="VARCHAR" />
 		<result column="p_value" property="value" jdbcType="VARCHAR" />
@@ -19,7 +19,7 @@
 	<!-- <if test="pName!= null and pName != ''">
             and p_name like '%'|| #{pName}||'%'
          </if> -->
-	<select id="findAllPar" resultMap="BaseResultMap"  parameterType="com.qiu.pojo.Par">
+	<select id="findAllPar" resultMap="BaseResultMap"  parameterType="com.service.pojo.Par">
 		select * from t_par t
 		 where 1 = 1
 		 <if test="id != null and id != ''">
@@ -40,7 +40,7 @@
         order by t.id;
 	</select>
 	<!-- 修改用户-->
-	<update id="updatePar" parameterType="com.qiu.pojo.Par">
+	<update id="updatePar" parameterType="com.service.pojo.Par">
 		update t_par set id = #{id}
 			<if test="name != null and name != ''">
             , p_name = #{name}
@@ -57,7 +57,7 @@
 		 where id = #{id}
 	</update>
 	<!-- 添加用户-->
-	<insert id="addPar" parameterType="com.qiu.pojo.Par">
+	<insert id="addPar" parameterType="com.service.pojo.Par">
 		insert into t_par(p_name,p_value,p_comment) values (#{name},#{value},#{comment})
 	</insert>
 	<!-- 删除用户-->

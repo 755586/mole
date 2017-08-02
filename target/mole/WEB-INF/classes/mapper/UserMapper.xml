@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.service.dao.IUserDao" >  
-    <resultMap id="BaseResultMap" type="com.qiu.pojo.User">
+    <resultMap id="BaseResultMap" type="com.service.pojo.User">
 		<result column="id" property="id" jdbcType="INTEGER" />
 		<result column="g_name" property="name" jdbcType="VARCHAR" />
 		<result column="g_nickname" property="nickname" jdbcType="VARCHAR" />
@@ -9,6 +9,7 @@
 		<result column="g_state" property="state" jdbcType="INTEGER" />
 		<result column="g_rank" property="rank" jdbcType="INTEGER" />
 		<result column="g_login_time" property="login_time" jdbcType="DATE" />
+		<result column="g_roleid"  property="roleid"   jdbcType="INTEGER"/>
 		<!-- <association property="bizClass" javaType="com.foresee.ems.entity.forms.BizClass">
        		<id property="id" column="BIZ_CLASS_ID"></id>
     	</association> -->
@@ -21,7 +22,7 @@
 	<!-- <if test="pName!= null and pName != ''">
             and p_name like '%'|| #{pName}||'%'
          </if> -->
-	<select id="findAllUser" resultMap="BaseResultMap"  parameterType="com.qiu.pojo.User">
+	<select id="findAllUser" resultMap="BaseResultMap"  parameterType="com.service.pojo.User">
 		select * from t_user t
 		 where 1 = 1
 		 <if test="id != null and id != ''">
@@ -45,10 +46,13 @@
          <if test="login_time != null and login_time != ''">
             and g_login_time = #{login_time}
          </if>
+         <if test="roleid != null and roleid != ''">
+            and g_roleid = #{id}
+         </if>
         order by t.id;
 	</select>
 	<!-- 修改用户-->
-	<update id="updateUser" parameterType="com.qiu.pojo.User">
+	<update id="updateUser" parameterType="com.service.pojo.User">
 		update t_user set id = #{id}
 			<if test="name != null and name != ''">
             , g_name = #{name}
@@ -68,11 +72,14 @@
          <if test="login_time != null and login_time != ''">
             , g_login_time = #{login_time}
          </if>
+         <if test="roleid != null and roleid != ''">
+            , g_roleid = #{roleid}
+         </if>
 		 where id = #{id}
 	</update>
 	<!-- 添加用户-->
-	<insert id="addUser" parameterType="com.qiu.pojo.User">
-		insert into t_user(g_name,g_password,g_login_time) values (#{name},#{password},#{login_time})
+	<insert id="addUser" parameterType="com.service.pojo.User">
+		insert into t_user(g_name,g_password,g_login_time,g_roleid) values (#{name},#{password},#{login_time},#{roleid})
 	</insert>
 	<!-- 删除用户-->
 	<delete id="deleteUserById" parameterType="int">

@@ -9,6 +9,7 @@
 		<result column="g_state" property="state" jdbcType="INTEGER" />
 		<result column="g_rank" property="rank" jdbcType="INTEGER" />
 		<result column="g_login_time" property="login_time" jdbcType="DATE" />
+		<result column="g_roleid"  property="roleid"   jdbcType="INTEGER"/>
 		<!-- <association property="bizClass" javaType="com.foresee.ems.entity.forms.BizClass">
        		<id property="id" column="BIZ_CLASS_ID"></id>
     	</association> -->
@@ -45,6 +46,9 @@
          <if test="login_time != null and login_time != ''">
             and g_login_time = #{login_time}
          </if>
+         <if test="roleid != null and roleid != ''">
+            and g_roleid = #{id}
+         </if>
         order by t.id;
 	</select>
 	<!-- 修改用户-->
@@ -68,11 +72,14 @@
          <if test="login_time != null and login_time != ''">
             , g_login_time = #{login_time}
          </if>
+         <if test="roleid != null and roleid != ''">
+            , g_roleid = #{roleid}
+         </if>
 		 where id = #{id}
 	</update>
 	<!-- 添加用户-->
 	<insert id="addUser" parameterType="com.service.pojo.User">
-		insert into t_user(g_name,g_password,g_login_time) values (#{name},#{password},#{login_time})
+		insert into t_user(g_name,g_password,g_login_time,g_roleid) values (#{name},#{password},#{login_time},#{roleid})
 	</insert>
 	<!-- 删除用户-->
 	<delete id="deleteUserById" parameterType="int">

@@ -14,13 +14,13 @@
     <context:annotation-config />                      
     
     <!-- 自动扫描 -->  
-    <context:component-scan base-package="com.qiu" />  
+    <context:component-scan base-package="com.service" />  
     
     <!-- DAO接口所在包名，Spring会自动查找其下的类 -->  
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
         <!--basePackage指定要扫描的包，在此包之下的映射器都会被搜索到。  
          		可指定多个包，包与包之间用逗号或分号分隔-->  
-        <property name="basePackage" value="com.qiu.dao" />  
+        <property name="basePackage" value="com.service.dao" />  
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>  
     </bean>        
     
@@ -59,4 +59,6 @@
         class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
         <property name="dataSource" ref="dataSource" />  
     </bean>
+    
+    
 </beans>
