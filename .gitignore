@@ -1,5 +1,6 @@
 /.metadata/*
 /.recommenders/*
-/mole/web/WEB-INF/classes/*
+ src/main/webapp/WEB-INF/classes/*
 Readme.txt
 /Servers/*
+/target/*

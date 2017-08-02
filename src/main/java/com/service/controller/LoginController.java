@@ -42,23 +42,24 @@ public class LoginController {
 		String pwd = request.getParameter("password");
 		//System.out.println(name+"=="+pwd);
 		User user = new User();
-//		user.setName(name);
-//		user = userService.findUserByName(name);
-//		//System.out.println(user);
-//		if(user!=null&&pwd.equals(user.getPassword())){
+		user.setName(name);
+		user = userService.findUserByName(name);
+		//System.out.println(user);
+		if(user!=null&&pwd.equals(user.getPassword())){
+			obj.put("msg", "登录成功!");
+			obj.put("user", user);
+			HttpSession session = request.getSession();
+			session.setAttribute("user", user);
+		}
+//		if(name.equals("admin")&&pwd.equals("admin")){
+//			user.setName(name);
+//			user.setPassword(pwd);
 //			obj.put("msg", "登录成功!");
 //			obj.put("user", user);
 //			HttpSession session = request.getSession();
 //			session.setAttribute("user", user);
 //		}
-		if(name.equals("admin")&&pwd.equals("admin")){
-			user.setName(name);
-			user.setPassword(pwd);
-			obj.put("msg", "登录成功!");
-			obj.put("user", user);
-			HttpSession session = request.getSession();
-			session.setAttribute("user", user);
-		}else{
+		else{
 			obj.put("msg", "用户名或密码错误!");
 			obj.put("user", null);
 		}
