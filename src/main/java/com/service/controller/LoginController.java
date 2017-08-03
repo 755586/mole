@@ -51,14 +51,7 @@ public class LoginController {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
 		}
-//		if(name.equals("admin")&&pwd.equals("admin")){
-//			user.setName(name);
-//			user.setPassword(pwd);
-//			obj.put("msg", "登录成功!");
-//			obj.put("user", user);
-//			HttpSession session = request.getSession();
-//			session.setAttribute("user", user);
-//		}
+
 		else{
 			obj.put("msg", "用户名或密码错误!");
 			obj.put("user", null);
